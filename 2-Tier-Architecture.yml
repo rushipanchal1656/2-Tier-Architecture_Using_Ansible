@@ -1,0 +1,61 @@
+---
+# web server script
+- name: Installation of Nginx webserver
+  hosts: webserver
+  become: true
+  vars:
+    web_pkg: nginx
+    php_pkg: 
+      - php
+      - php-fpm
+    web_service: nginx
+    php_service: php-fpm
+    web_default_page: /usr/share/nginx/html
+
+  tasks: 
+   - name: Install nginx webserver
+     ansible.builtin.dnf:
+        name: "{{ web_pkg }}"
+        state: present
+   - name: Install php
+     ansible.builtin.dnf:
+        name: "{{ php_pkg }}"
+        state: present
+   - name: Start and enable nginx service
+     ansible.builtin.service:
+         name: "{{ web_service }}"
+         state: started
+         enabled: true
+   - name: Start and enable php-fpm service
+     ansible.builtin.service:
+         name: "{{ php_service }}"
+         state: started
+         enabled: true     
+   - name: Deploy HTML page on webserver
+     ansible.builtin.copy:
+        dest: "{{ web_default_page }}/index.html"
+        content: "<h1>Welcome to Nginx Webserver which is running on {{inventory_hostname}}</h1>"
+
+
+# db server script
+- name: Installation of MariaDB database server
+  hosts: dbserver
+  become: true
+  vars:        
+    db_pkg: mariadb105-server
+    db_client_pkg: mariadb105
+    db_service: mariadb
+
+  tasks: 
+   - name: Install mariadb database server
+     ansible.builtin.dnf:
+        name: "{{ db_pkg }}"
+        state: present
+   - name: Start and enable mariadb service
+     ansible.builtin.service:  # Changed from systemd_service to service
+         name: "{{ db_service }}"
+         state: started
+         enabled: true    
+   - name: Create a database
+     ansible.builtin.shell:
+        cmd: mysql -u root -e "CREATE DATABASE IF NOT EXISTS my_database;"
