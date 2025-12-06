@@ -44,17 +44,6 @@ This project automates the deployment of a two-tier web application architecture
 ├── 2-tier-architecture.yml       # Main Ansible playbook
 ├── Mumbai_server_key.pem         # SSH private key (in .gitignore)
 ├── README.md                     # This documentation file
-│
-├── roles/                        # Optional: Role-based structure
-│   ├── webserver/
-│   │   ├── tasks/
-│   │   ├── handlers/
-│   │   ├── templates/
-│   │   └── vars/
-│   └── dbserver/
-│       ├── tasks/
-│       ├── handlers/
-│       └── vars/
 
 ```
 
@@ -205,13 +194,13 @@ ansible -i inventory.ini all -m ping
 ## 📖 Official Documentation
 
 ```txt
-Resource Link Description
-Ansible Documentation docs.ansible.com Official Ansible documentation and guides
-Ansible Module Index Ansible Module Index Complete list of Ansible modules
-Nginx Documentation nginx.org Nginx configuration and administration
-MariaDB Documentation mariadb.com/docs MariaDB server documentation
-PHP Documentation php.net/manual PHP programming language reference
-Amazon Linux 2023 AWS Documentation Amazon Linux 2023 user guide
+* Resource Link Description
+* Ansible Documentation docs.ansible.com Official Ansible documentation and guides
+* Ansible Module Index Ansible Module Index Complete list of Ansible modules
+* Nginx Documentation nginx.org Nginx configuration and administration
+* MariaDB Documentation mariadb.com/docs MariaDB server documentation
+* PHP Documentation php.net/manual PHP programming language reference
+* Amazon Linux 2023 AWS Documentation Amazon Linux 2023 user guide
 ```
 
 # 📌 Author
